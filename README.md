@@ -28,7 +28,7 @@ source .venv/bin/activate
 Instalando as dependencias `dev` no modo `editavel`.
 
 ```bash
-pip install meson-python
+pip install meson-python numpy
 pip install --no-build-isolation --editable ".[dev]"
 ```
 

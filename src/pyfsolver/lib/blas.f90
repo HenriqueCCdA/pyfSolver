@@ -1,7 +1,7 @@
 function dot(x, y, n) result(d)
     implicit none
-    real(kind=8), dimension(n), intent(in) :: x, y
     integer, intent(in) :: n
+    real(kind=8), dimension(n), intent(in) :: x, y
     real(kind=8) :: d
     integer :: i
 
@@ -13,10 +13,10 @@ end function dot
 
 subroutine matvec(a, x, y, n)
     implicit none
+    integer, intent(in) :: n
     real(kind=8), dimension(n), intent(in) :: x
     real(kind=8), dimension(n), intent(inout) :: y
     real(kind=8), dimension(n,n), intent(in) :: a
-    integer, intent(in) :: n
     integer :: i, j
 
     y = 0.d0

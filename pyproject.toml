@@ -1,0 +1,30 @@
+[build-system]
+build-backend = "mesonpy"
+requires = [
+    "numpy",
+    "meson-python",
+    "meson",
+]
+
+
+[project]
+name = "pyfsolver"
+version = "0.1.0"
+dependencies = [
+    "numpy",
+]
+
+
+[project.optional-dependencies]
+dev = [
+    "numpy",
+    "meson-python",
+    "meson",
+    "build",
+    "pytest",
+    "black",
+    "mypy",
+]
+
+[project.scripts]
+pyfsolver =  "pyfsolver.__main__:main"

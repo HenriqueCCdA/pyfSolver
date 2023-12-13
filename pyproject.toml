@@ -8,11 +8,15 @@ requires = [
 
 
 [project]
+requires-python = ">=3.10"
 name = "pyfsolver"
 version = "0.1.0"
 dependencies = [
     "numpy",
 ]
+
+[tool.meson-python.args]
+compile = ['-j2']
 
 
 [project.optional-dependencies]
@@ -24,7 +28,62 @@ dev = [
     "pytest",
     "black",
     "mypy",
+    "taskipy",
+    "flake8",
+    "Flake8-pyproject",
+    "isort",
 ]
 
 [project.scripts]
 pyfsolver =  "pyfsolver.__main__:main"
+
+[tool.flake8]
+exclude = [".venv", "build"]
+max-line-length = 120
+
+
+[tool.black]
+line-length = 120
+exclude = '''
+/(
+      \.eggs
+    | \.git
+    | \.venv
+    | build
+    | dist
+)/
+'''
+
+[tool.isort]
+profile = "black"
+src_paths = ["src.pyfsolver", "tests"]
+multi_line_output = 3
+known_local_folder = "pyfsolver"
+
+
+[tool.mypy]
+warn_return_any = true
+warn_unused_configs = true
+pretty = true
+
+[[tool.mypy.overrides]]
+module = [
+    "lpyfsolver",
+    "pyfsolver.solver",
+]
+ignore_missing_imports = true
+
+
+[tool.taskipy.variables]
+src_module = "src/pyfsolver"
+
+[tool.taskipy.tasks]
+isort = {cmd="isort tests {src_module}", help="Ordenando as importações.", use_vars = true}
+black = {cmd="black tests {src_module}", help="Formação com black.", use_vars = true}
+fmt = {cmd="task isort && task black", help="Formatador do código."}
+mypy = {cmd="mypy --package tests --package src.pyfsolver", help="Analisador estatico de tipos."}
+linter = {cmd="task mypy && flake8", help="Linter."}
+test = {cmd="pytest -n 2 tests", help="Rodando os testes."}
+outdated = {cmd="pip list --outdated", help="Listando os pacotes antigos."}
+package = {cmd="python -m build", help="Gerando o pacote python."}
+clean = {help="Limpa o projeto.", cmd="rm -rfv .pytest_cache && rm -rfv .mypy_cache && rm -rfv build && rm -rfv dist && rm -rfv *.egg-info && find ./src -name '*.pyc' -exec rm -vf {} \\;"}

@@ -1,7 +1,7 @@
 project('pyfsolver',
   ['c', 'fortran'],
   version : '0.1.0',
-  meson_version: '>= 1.1.0',
+  meson_version: '>= 1.3.0',
   default_options : [
     'warning_level=3',
     'buildtype=release',
@@ -14,22 +14,24 @@ py.install_sources(
   'src/pyfsolver/__init__.py',
   'src/pyfsolver/__main__.py',
   'src/pyfsolver/solver.py',
+  'src/pyfsolver/coo.py',
   'src/pyfsolver/py.typed',
   subdir: 'pyfsolver',
 )
 
-
-py_dep = py.dependency()
-
 incdir_numpy = run_command(py,
   [
     '-c',
-    'import os; import numpy; print(os.path.relpath(numpy.get_include()))'],
+    'import os; import numpy; print(os.path.relpath(numpy.get_include()))'
+  ],
   check : true
 ).stdout().strip()
 
 incdir_f2py = run_command(py,
-  ['-c', 'import os; import numpy.f2py; print(os.path.relpath(numpy.f2py.get_include()))'],
+  [
+    '-c',
+    'import os; import numpy.f2py; print(os.path.relpath(numpy.f2py.get_include()))'
+  ],
   check : true
 ).stdout().strip()
 
@@ -54,5 +56,5 @@ py.extension_module('lpyfsolver',
     ],
     fortranobject_c,
     include_directories: [inc_np],
-    dependencies : [py_dep],
-    install : true)
+    install : true,
+)

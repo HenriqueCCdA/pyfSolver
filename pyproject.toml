@@ -6,13 +6,13 @@ requires = [
     "meson",
 ]
 
-
 [project]
 requires-python = ">=3.10"
 name = "pyfsolver"
 version = "0.1.0"
 dependencies = [
     "numpy",
+    "scipy",
 ]
 
 [tool.meson-python.args]
@@ -32,6 +32,9 @@ dev = [
     "flake8",
     "Flake8-pyproject",
     "isort",
+    "ipdb",
+    "ipython",
+    "pre-commit",
 ]
 
 [project.scripts]
@@ -68,8 +71,10 @@ pretty = true
 
 [[tool.mypy.overrides]]
 module = [
+    "scipy",
     "lpyfsolver",
     "pyfsolver.solver",
+    "pyfsolver.coo",
 ]
 ignore_missing_imports = true
 
@@ -83,7 +88,7 @@ black = {cmd="black tests {src_module}", help="Formação com black.", use_vars 
 fmt = {cmd="task isort && task black", help="Formatador do código."}
 mypy = {cmd="mypy --package tests --package src.pyfsolver", help="Analisador estatico de tipos."}
 linter = {cmd="task mypy && flake8", help="Linter."}
-test = {cmd="pytest -n 2 tests", help="Rodando os testes."}
+test = {cmd="pytest tests", help="Rodando os testes."}
 outdated = {cmd="pip list --outdated", help="Listando os pacotes antigos."}
 package = {cmd="python -m build", help="Gerando o pacote python."}
 clean = {help="Limpa o projeto.", cmd="rm -rfv .pytest_cache && rm -rfv .mypy_cache && rm -rfv build && rm -rfv dist && rm -rfv *.egg-info && find ./src -name '*.pyc' -exec rm -vf {} \\;"}

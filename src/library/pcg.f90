@@ -34,7 +34,7 @@ subroutine pcg_(a, b, x, tol, maxit, neq, fprint)
     ! ||b||
     norm_b = dsqrt(dot(b, b, neq))
 
-    call matvec(a, x, z, neq)
+    call matvec_(a, x, z, neq)
 
     ! r = b - Ax0
     r = b - z
@@ -48,7 +48,7 @@ subroutine pcg_(a, b, x, tol, maxit, neq, fprint)
     do j = 1, maxit
 
         ! z = Ap(j)
-        call matvec(a, p, z, neq)
+        call matvec_(a, p, z, neq)
 
         ! alpha =( r(j),z(j) ) / ( Ap(j), p(j) ))
         alpha = d / dot(p, z, neq)
@@ -79,7 +79,7 @@ subroutine pcg_(a, b, x, tol, maxit, neq, fprint)
     enddo
 
     ! Energy norm:  x*Kx
-    call matvec(a, x, z, neq);
+    call matvec_(a, x, z, neq);
     ! norma de energia = xTAx
     xKx = dot( x, z, nEq);
 

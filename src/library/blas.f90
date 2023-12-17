@@ -11,7 +11,7 @@ function dot(x, y, n) result(d)
     enddo
 end function dot
 
-subroutine matvec(a, x, y, n)
+subroutine matvec_(a, x, y, n)
     implicit none
     integer, intent(in) :: n
     real(kind=8), dimension(n), intent(in) :: x
@@ -25,4 +25,21 @@ subroutine matvec(a, x, y, n)
             y(i) = y(i) + a(i,j) * x(j)
         enddo
     enddo
-end subroutine matvec
+end subroutine matvec_
+
+
+subroutine matvec_coo(a, row, col, x, y, nnz, n)
+    implicit none
+    integer, intent(in) :: nnz, n
+    integer, dimension(nnz), intent(in) :: row, col
+    real(kind=8), dimension(nnz), intent(in) :: a
+    real(kind=8), dimension(n), intent(in) :: x
+    real(kind=8), dimension(n), intent(inout) :: y
+    integer :: i, irow, icol
+    y = 0.d0
+    do i = 1, nnz
+        irow = row(i) + 1
+        icol = col(i) + 1
+        y(irow) = y(irow) + a(i) * x(icol)
+    enddo
+end subroutine matvec_coo

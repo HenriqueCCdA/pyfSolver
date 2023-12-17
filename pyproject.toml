@@ -75,6 +75,7 @@ module = [
     "lpyfsolver",
     "pyfsolver.solver",
     "pyfsolver.coo",
+    "pyfsolver.blas",
 ]
 ignore_missing_imports = true
 

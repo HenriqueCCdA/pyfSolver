@@ -13,6 +13,7 @@ py = import('python').find_installation()
 py.install_sources(
   'src/pyfsolver/__init__.py',
   'src/pyfsolver/__main__.py',
+  'src/pyfsolver/blas.py',
   'src/pyfsolver/solver.py',
   'src/pyfsolver/coo.py',
   'src/pyfsolver/py.typed',

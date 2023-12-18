@@ -59,3 +59,19 @@ task test
 ```bash
 task package
 ```
+
+## Commit
+
+Para qualidade temos configurado `black`, `isort`, `flake8` e `mypy`. Para executar essa ferramentas pode-se instalar o precommit:
+
+```bash
+pre-commit  install
+```
+
+ou manumalmente rodar formatador, linter e os testes:
+
+```bash
+task fmt
+task linter
+task test
+```

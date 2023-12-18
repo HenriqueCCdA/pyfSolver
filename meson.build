@@ -8,7 +8,7 @@ project('pyfsolver',
   ]
 )
 
-py = import('python').find_installation()
+py = import('python').find_installation(pure: false)
 
 py.install_sources(
   'src/pyfsolver/__init__.py',
@@ -36,19 +36,17 @@ incdir_f2py = run_command(py,
   check : true
 ).stdout().strip()
 
-incdir_f2py = incdir_numpy / '..' / '..' / 'f2py' / 'src'
-# inc_f2py = include_directories(incdir_f2py)
 fortranobject_c = incdir_f2py / 'fortranobject.c'
 
-lib_source = custom_target('lpyfsolvermodule.c',
+lib_source = custom_target('_lfsolvermodule.c',
   input : ['src/library/api.f90'],
-  output : ['lpyfsolvermodule.c', 'lpyfsolver-f2pywrappers.f'],
-  command : [py, '-m', 'numpy.f2py', '@INPUT@', '-m', 'lpyfsolver', '--lower']
+  output : ['_lfsolvermodule.c', '_lfsolver-f2pywrappers.f'],
+  command : [py, '-m', 'numpy.f2py', '@INPUT@', '-m', '_lfsolver', '--lower']
 )
 
 inc_np = include_directories(incdir_numpy, incdir_f2py)
 
-py.extension_module('lpyfsolver',
+py.extension_module('_lfsolver',
     [
       'src/library/api.f90',
       'src/library/blas.f90',
@@ -57,5 +55,6 @@ py.extension_module('lpyfsolver',
     ],
     fortranobject_c,
     include_directories: [inc_np],
-    install : true,
+    install: true,
+    subdir: 'pyfsolver',
 )

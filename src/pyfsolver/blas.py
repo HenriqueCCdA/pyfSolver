@@ -1,6 +1,6 @@
 import numpy as np
-from lpyfsolver import matvec as _matvec
 
+from pyfsolver._lfsolver import matvec as _matvec
 from pyfsolver.coo import COO
 
 

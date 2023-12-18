@@ -80,6 +80,7 @@ module = [
     "pyfsolver.coo",
     "pyfsolver.blas",
     "pyfsolver._lfsolver",
+    "pyfsolver.timer",
 ]
 ignore_missing_imports = true
 

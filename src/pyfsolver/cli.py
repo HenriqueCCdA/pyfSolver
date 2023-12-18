@@ -40,6 +40,7 @@ def typer_callback(
 def run(
     input_matrix: Annotated[Path, typer.Argument(..., help="Camanho do arquivo da matriz no formato .mtx.")],
     input_b: Annotated[Path, typer.Argument(..., help="Camanho do arquivo do vetor b no formato .mtx.")],
+    fprint: Annotated[bool, typer.Option("--prinf", "-p", help="Imprime os resultados.")] = False,
 ):
     """Resolvendo o sistema de equações."""
     a = read_matrix(input_matrix)
@@ -47,5 +48,5 @@ def run(
 
     x = Vector(data=np.zeros_like(b.data), n=b.n)
 
-    with Timer("Solver"):
-        pcg(a, b, x, fprint=True)
+    with Timer("\nSolver"):
+        pcg(a, b, x, fprint=fprint)

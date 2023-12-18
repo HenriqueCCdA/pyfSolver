@@ -13,6 +13,8 @@ version = "0.1.0"
 dependencies = [
     "numpy",
     "scipy",
+    "typer[all]",
+    "rich",
 ]
 
 [tool.meson-python.args]
@@ -38,7 +40,7 @@ dev = [
 ]
 
 [project.scripts]
-pyfsolver =  "pyfsolver.__main__:main"
+pyfsolver =  "pyfsolver.cli:app"
 
 [tool.flake8]
 exclude = [".venv", "build", "builddir"]
@@ -73,6 +75,7 @@ pretty = true
 [[tool.mypy.overrides]]
 module = [
     "scipy",
+    "pyfsolver.cli",
     "pyfsolver.solver",
     "pyfsolver.coo",
     "pyfsolver.blas",

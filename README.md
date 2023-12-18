@@ -45,7 +45,7 @@ pip install ".[dev]"
 Para executar:
 
 ```bash
-pyfsolver
+pyfsolver run sist3.mtx sist3_b.mtx
 ```
 
 ## Rodandos os teste

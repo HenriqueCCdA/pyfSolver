@@ -8,6 +8,7 @@ from rich.console import Console
 
 from pyfsolver.coo import Vector, read_matrix, read_vector
 from pyfsolver.solver import pcg
+from pyfsolver.timer import Timer
 
 console = Console()
 
@@ -45,4 +46,6 @@ def run(
     b = read_vector(input_b)
 
     x = Vector(data=np.zeros_like(b.data), n=b.n)
-    pcg(a, b, x, fprint=True)
+
+    with Timer("Solver"):
+        pcg(a, b, x, fprint=True)

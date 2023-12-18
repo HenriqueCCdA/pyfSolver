@@ -17,6 +17,7 @@ py.install_sources(
   'src/pyfsolver/coo.py',
   'src/pyfsolver/cli.py',
   'src/pyfsolver/solver.py',
+  'src/pyfsolver/timer.py',
   'src/pyfsolver/py.typed',
   subdir: 'pyfsolver',
 )

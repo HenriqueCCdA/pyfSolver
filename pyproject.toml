@@ -41,7 +41,7 @@ dev = [
 pyfsolver =  "pyfsolver.__main__:main"
 
 [tool.flake8]
-exclude = [".venv", "build"]
+exclude = [".venv", "build", "builddir"]
 max-line-length = 120
 
 
@@ -54,6 +54,7 @@ exclude = '''
     | \.venv
     | build
     | dist
+    | builddir
 )/
 '''
 
@@ -72,10 +73,10 @@ pretty = true
 [[tool.mypy.overrides]]
 module = [
     "scipy",
-    "lpyfsolver",
     "pyfsolver.solver",
     "pyfsolver.coo",
     "pyfsolver.blas",
+    "pyfsolver._lfsolver",
 ]
 ignore_missing_imports = true
 

@@ -1,13 +1,13 @@
 # PyFortran
 
-Projeto simples para explorar `interoperabilidade` entre o `Fortran` e o `Python`. Para essa comunicação foi utilização o `f2py`. O `f2py` gera automaticamente um wrapper em `C` para depois compilar uma lib `cpython`. Esse pacote faz parte no `numpy`. O `f2py` usa `meson` para configurar o `build` da `lib`. O `build-system` precisa do `numpy` é do  `meson-python`.
+Projeto simples para explorar `interoperabilidade` entre o `Fortran` e o `Python`. Para essa comunicação foi utilização o `f2py`. O `f2py` gera automaticamente um wrapper em `C` para depois compilar uma lib `cpython`. Esse pacote faz parte no `numpy`. O `f2py` usa `meson` para configurar o `build` da `lib`. O `build-system` precisa do `numpy` e do  `meson-python`.
 
 Lista de ferramentas:
 
- - [f2py](https://numpy.org/doc/stable/f2py/)
- - [meson](https://mesonbuild.com/)
- - [meson-python](https://mesonbuild.com/meson-python/)
- - [build](https://pypa-build.readthedocs.io/en/latest/)
+- [f2py](https://numpy.org/doc/stable/f2py/)
+- [meson](https://mesonbuild.com/)
+- [meson-python](https://mesonbuild.com/meson-python/)
+- [build](https://pypa-build.readthedocs.io/en/latest/)
 
 ## Instalando
 
@@ -23,7 +23,7 @@ Apos de ativar o ambiente virtual basta fazer
 source .venv/bin/activate
 ```
 
-#### Dev no modo editavel
+## Dev no modo editavel
 
 Instalando as dependencias `dev` no modo `editavel`.
 
@@ -32,7 +32,7 @@ pip install meson-python meson ninja numpy
 pip install --no-build-isolation --editable ".[dev]"
 ```
 
-#### Dev
+## Dev
 
 Instalando as dependencias `dev`.
 
@@ -51,11 +51,11 @@ pyfsolver
 ## Rodandos os teste
 
 ```bash
-pytest
+task test
 ```
 
 ## Gerando pacote
 
 ```bash
-python -m build
+task package
 ```

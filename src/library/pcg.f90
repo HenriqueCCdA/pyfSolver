@@ -1,3 +1,17 @@
+subroutine precond_diag(m, a, row, col, nnz)
+    implicit none
+    integer, intent(in) :: nnz
+    real(kind=8), dimension(nnz), intent(in) :: a
+    integer, dimension(nnz), intent(in) :: row, col
+    real(kind=8), dimension(nnz), intent(inout) :: m
+    integer i
+    do i=1, nnz
+        if (row(i) == col(i)) then
+            m(row(i) + 1) = 1.d0 / a(i)
+        endif
+    enddo
+end subroutine precond_diag
+
 subroutine pcg_(a, row, col, b, x, tol, maxit, nnz, neq, fprint)
     implicit none
     integer, intent(in) :: neq, nnz
@@ -11,7 +25,7 @@ subroutine pcg_(a, row, col, b, x, tol, maxit, nnz, neq, fprint)
     logical, intent(in) :: fprint
     !
     real(8), dimension(:), allocatable :: m, z, r, p
-    integer :: i, j
+    integer :: j
     real(8) :: d, norm_b, conv, alpha, beta, di, xKx, norm_x
     external matvec_coo
 
@@ -19,11 +33,8 @@ subroutine pcg_(a, row, col, b, x, tol, maxit, nnz, neq, fprint)
     allocate(m(neq), z(neq), r(neq), p(neq))
 
     ! Precondicionador
-    do i=1, nnz
-        if (row(i) == col(i)) then
-            m(row(i) + 1) = 1.d0 / a(i)
-        endif
-    enddo
+    call precond_diag(m , a, row, col, nnz)
+
     ! chute inicial
     x = 0.d0
 
@@ -55,12 +66,11 @@ subroutine pcg_(a, row, col, b, x, tol, maxit, nnz, neq, fprint)
         ! alpha =( r(j),z(j) ) / ( Ap(j), p(j) ))
         alpha = d / dot_product(p, z)
 
-        do i=1, neq
-            ! x(j+1) = x(j) + alpha*p
-            x(i) = x(i) + alpha * p(i)
-            ! r(j+1) = r(j) - alpha*Ap*/
-            r(i) = r(i) - alpha * z(i)
-        enddo
+        ! x(j+1) = x(j) + alpha*p
+        x = x + alpha * p
+
+        ! r(j+1) = r(j) - alpha*Ap*/
+        r = r - alpha * z
 
         ! z  = (M-1)r0
         z = m * r
@@ -71,9 +81,7 @@ subroutine pcg_(a, row, col, b, x, tol, maxit, nnz, neq, fprint)
         beta = di / d
 
         ! p(j+1) = (M-1)r(j+1) + beta*p(j) = z + beta*p(j)
-        do i=1, neq
-            p(i) = z(i) + beta * p(i)
-        enddo
+        p = z + beta * p
 
         d = di;
         if (dsqrt(dabs(d)) < conv) exit;

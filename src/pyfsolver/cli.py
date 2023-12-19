@@ -1,13 +1,15 @@
 from pathlib import Path
 from typing import Annotated
 
-import numpy as np
 import typer
 from click import Context
 from rich.console import Console
 
+import numpy as np
+
 from pyfsolver.coo import Vector, read_matrix, read_vector
-from pyfsolver.solver import pcg
+from pyfsolver.fortran.solver import pcg as fortran_pcg
+from pyfsolver.numpy.solver import pcg as numpy_pcg
 from pyfsolver.timer import Timer
 
 console = Console()
@@ -37,7 +39,7 @@ def typer_callback(
 
 
 @app.command()
-def run(
+def fortran(
     input_matrix: Annotated[Path, typer.Argument(..., help="Camanho do arquivo da matriz no formato .mtx.")],
     input_b: Annotated[Path, typer.Argument(..., help="Camanho do arquivo do vetor b no formato .mtx.")],
     fprint: Annotated[bool, typer.Option("--prinf", "-p", help="Imprime os resultados.")] = False,
@@ -49,4 +51,20 @@ def run(
     x = Vector(data=np.zeros_like(b.data), n=b.n)
 
     with Timer("\nSolver"):
-        pcg(a, b, x, fprint=fprint)
+        fortran_pcg(a, b, x, fprint=fprint)
+
+
+@app.command()
+def numpy(
+    input_matrix: Annotated[Path, typer.Argument(..., help="Camanho do arquivo da matriz no formato .mtx.")],
+    input_b: Annotated[Path, typer.Argument(..., help="Camanho do arquivo do vetor b no formato .mtx.")],
+    fprint: Annotated[bool, typer.Option("--prinf", "-p", help="Imprime os resultados.")] = False,
+):
+    """Resolvendo o sistema de equações."""
+    a = read_matrix(input_matrix)
+    b = read_vector(input_b)
+
+    x = Vector(data=np.zeros_like(b.data), n=b.n)
+
+    with Timer("\nSolver"):
+        numpy_pcg(a, b, x, fprint=fprint)

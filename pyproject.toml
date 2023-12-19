@@ -76,9 +76,11 @@ pretty = true
 module = [
     "scipy",
     "pyfsolver.cli",
-    "pyfsolver.solver",
     "pyfsolver.coo",
-    "pyfsolver.blas",
+    "pyfsolver.fortran.solver",
+    "pyfsolver.fortran.blas",
+    "pyfsolver.numpy.solver",
+    "pyfsolver.numpy.blas",
     "pyfsolver._lfsolver",
     "pyfsolver.timer",
 ]

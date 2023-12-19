@@ -13,13 +13,25 @@ py = import('python').find_installation(pure: false)
 py.install_sources(
   'src/pyfsolver/__init__.py',
   'src/pyfsolver/__main__.py',
-  'src/pyfsolver/blas.py',
   'src/pyfsolver/coo.py',
   'src/pyfsolver/cli.py',
-  'src/pyfsolver/solver.py',
   'src/pyfsolver/timer.py',
   'src/pyfsolver/py.typed',
   subdir: 'pyfsolver',
+)
+
+py.install_sources(
+  'src/pyfsolver/numpy/__init__.py',
+  'src/pyfsolver/numpy/blas.py',
+  'src/pyfsolver/numpy/solver.py',
+  subdir: 'pyfsolver/numpy',
+)
+
+py.install_sources(
+  'src/pyfsolver/fortran/__init__.py',
+  'src/pyfsolver/fortran/blas.py',
+  'src/pyfsolver/fortran/solver.py',
+  subdir: 'pyfsolver/fortran',
 )
 
 incdir_numpy = run_command(py,

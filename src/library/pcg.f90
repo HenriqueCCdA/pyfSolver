@@ -88,24 +88,24 @@ subroutine pcg_(a, row, col, b, x, tol, maxit, nnz, neq, fprint)
 
     enddo
 
-    ! Energy norm:  x*Kx
-    call matvec_coo(a, row, col, x, z, nnz, neq);
     ! norma de energia = xTAx
+    call matvec_coo(a, row, col, x, z, nnz, neq);
     xKx = dot_product(x, z);
 
     ! norm = || x ||
     norm_x = sqrt(dot_product(x, x));
 
 10  format('(PCG) solver:'/&
-        ,'Solver tol           = ',d20.6/&
+        ,'Solver tol           = ',E20.6/&
         ,'Number of equations  = ',i20/&
         ,'Number of iterations = ',i20/&
-        ,'| xKx |              = ',d20.10/&
-        ,'| x |                = ',d20.10&
+        ,'|| xKx ||            = ',E20.10/&
+        ,'|| x ||              = ',E20.10/&
+        ,'|| b ||              = ',E20.10&
     )
 
     if (fprint) then
-        print 10, tol, neq, j, xKx, norm_x
+        print 10, tol, neq, j, xKx, norm_x, norm_b
     endif
 
     ! free

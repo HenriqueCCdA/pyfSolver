@@ -1,8 +1,9 @@
-import numpy as np
 import pytest
 
-from pyfsolver.blas import matvec
+import numpy as np
+
 from pyfsolver.coo import COO
+from pyfsolver.fortran.blas import matvec
 
 
 def test_matvec():

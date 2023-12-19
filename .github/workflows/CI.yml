@@ -68,7 +68,8 @@ jobs:
       run: |
         pyfsolver
         pyfsolver -v
-        pyfsolver run tests/coo_files/sist3.mtx tests/coo_files/sist3_b.mtx
+        pyfsolver fortran tests/coo_files/sist3.mtx tests/coo_files/sist3_b.mtx
+        pyfsolver numpy tests/coo_files/sist3.mtx tests/coo_files/sist3_b.mtx
 
   build_tests:
     needs: setup_install

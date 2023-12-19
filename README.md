@@ -42,10 +42,16 @@ pip install ".[dev]"
 
 ## Executando
 
-Para executar:
+Para executar o código:
 
 ```bash
-pyfsolver run sist3.mtx sist3_b.mtx
+pyfsolver fortran sist3.mtx sist3_b.mtx
+```
+
+Para executar o numpy:
+
+```bash
+pyfsolver numpy sist3.mtx sist3_b.mtx
 ```
 
 ## Rodandos os teste

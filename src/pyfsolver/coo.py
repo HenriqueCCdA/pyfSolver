@@ -1,8 +1,9 @@
 from dataclasses import dataclass
 from pathlib import Path
 
-from numpy import ndarray
 from scipy import io
+
+from numpy import ndarray
 
 
 @dataclass(frozen=True)
@@ -46,4 +47,4 @@ def read_vector(file: Path):
     """
     a = io.mmread(file)
 
-    return Vector(a.copy(), a.shape[0])
+    return Vector(a.squeeze(), a.shape[0])

@@ -96,3 +96,9 @@ jobs:
 
     - name: test
       run: pytest tests
+
+    - name: test
+      run: |
+        meson setup builddir
+        meson compile -C builddir
+        meson test -C builddir

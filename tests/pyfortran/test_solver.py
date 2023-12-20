@@ -3,7 +3,7 @@ from pytest import approx
 import numpy as np
 
 from pyfsolver.coo import COO, Vector
-from pyfsolver.fortran.solver import pcg
+from pyfsolver.pyfortran.solver import pcg
 
 
 def test_pcg():

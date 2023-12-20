@@ -8,8 +8,8 @@ from rich.console import Console
 import numpy as np
 
 from pyfsolver.coo import Vector, read_matrix, read_vector
-from pyfsolver.fortran.solver import pcg as fortran_pcg
 from pyfsolver.numpy.solver import pcg as numpy_pcg
+from pyfsolver.pyfortran.solver import pcg as fortran_pcg
 from pyfsolver.timer import Timer
 
 console = Console()

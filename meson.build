@@ -28,10 +28,10 @@ py.install_sources(
 )
 
 py.install_sources(
-  'src/pyfsolver/fortran/__init__.py',
-  'src/pyfsolver/fortran/blas.py',
-  'src/pyfsolver/fortran/solver.py',
-  subdir: 'pyfsolver/fortran',
+  'src/pyfsolver/pyfortran/__init__.py',
+  'src/pyfsolver/pyfortran/blas.py',
+  'src/pyfsolver/pyfortran/solver.py',
+  subdir: 'pyfsolver/pyfortran',
 )
 
 incdir_numpy = run_command(py,
@@ -72,3 +72,9 @@ py.extension_module('_lfsolver',
     install: true,
     subdir: 'pyfsolver',
 )
+
+test_matvec = executable('test_matvec', 'tests/fortran/test_matvec.f90', 'src/library/blas.f90')
+test_solver = executable('test_solver', 'tests/fortran/test_solver.f90', 'src/library/pcg.f90', 'src/library/blas.f90')
+
+test('test matvec', test_matvec)
+test('test solver', test_solver)

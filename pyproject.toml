@@ -37,6 +37,7 @@ dev = [
     "ipdb",
     "ipython",
     "pre-commit",
+    "ninja",
 ]
 
 [project.scripts]
@@ -77,8 +78,8 @@ module = [
     "scipy",
     "pyfsolver.cli",
     "pyfsolver.coo",
-    "pyfsolver.fortran.solver",
-    "pyfsolver.fortran.blas",
+    "pyfsolver.pyfortran.solver",
+    "pyfsolver.pyfortran.blas",
     "pyfsolver.numpy.solver",
     "pyfsolver.numpy.blas",
     "pyfsolver._lfsolver",
@@ -96,6 +97,9 @@ black = {cmd="black tests {src_module}", help="Formação com black.", use_vars 
 fmt = {cmd="task isort && task black", help="Formatador do código."}
 mypy = {cmd="mypy --package tests --package src.pyfsolver", help="Analisador estatico de tipos."}
 linter = {cmd="task mypy && flake8", help="Linter."}
+meson_setup = {cmd="meson setup builddir --wipe", help="Setup do Meson."}
+meson_compile = {cmd="meson compile -C builddir", help="Compilando com o Meson."}
+test_lib = {cmd="meson test -C builddir", help="Rodando os testes da lib."}
 test = {cmd="pytest tests", help="Rodando os testes."}
 outdated = {cmd="pip list --outdated", help="Listando os pacotes antigos."}
 package = {cmd="python -m build", help="Gerando o pacote python."}

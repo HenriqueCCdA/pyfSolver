@@ -3,7 +3,7 @@ import pytest
 import numpy as np
 
 from pyfsolver.coo import COO
-from pyfsolver.fortran.blas import matvec
+from pyfsolver.pyfortran.blas import matvec
 
 
 def test_matvec():

@@ -38,6 +38,7 @@ dev = [
     "ipython",
     "pre-commit",
     "ninja",
+    "fprettify",
 ]
 
 [project.scripts]
@@ -93,8 +94,9 @@ src_module = "src/pyfsolver"
 
 [tool.taskipy.tasks]
 isort = {cmd="isort tests {src_module}", help="Ordenando as importações.", use_vars = true}
-black = {cmd="black tests {src_module}", help="Formação com black.", use_vars = true}
-fmt = {cmd="task isort && task black", help="Formatador do código."}
+black = {cmd="black tests {src_module}", help="Formatação com black.", use_vars = true}
+fprettify = {cmd="fprettify tests/fortran/*", help="Formatação com fprettify" }
+fmt = {cmd="task isort && task black && task fprettify", help="Formatador do código."}
 mypy = {cmd="mypy --package tests --package src.pyfsolver", help="Analisador estatico de tipos."}
 linter = {cmd="task mypy && flake8", help="Linter."}
 meson_setup = {cmd="meson setup builddir --wipe", help="Setup do Meson."}

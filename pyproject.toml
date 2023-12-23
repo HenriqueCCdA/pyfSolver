@@ -106,3 +106,15 @@ test = {cmd="pytest tests", help="Rodando os testes."}
 outdated = {cmd="pip list --outdated", help="Listando os pacotes antigos."}
 package = {cmd="python -m build", help="Gerando o pacote python."}
 clean = {help="Limpa o projeto.", cmd="rm -rfv .pytest_cache && rm -rfv .mypy_cache && rm -rfv build && rm -rfv dist && rm -rfv *.egg-info && find ./src -name '*.pyc' -exec rm -vf {} \\;"}
+
+[tool.pytest.ini_options]
+addopts = "-ra -vv --strict-markers"
+testpaths = [
+    "tests",
+]
+markers=[
+    "unity: marks unity tests",
+    "integration: marks integration testes",
+    "math: marks matematical core tests",
+    "cli: marks cli tests",
+]

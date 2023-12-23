@@ -1,4 +1,4 @@
-from pytest import approx
+import pytest
 
 import numpy as np
 
@@ -6,6 +6,8 @@ from pyfsolver.coo import COO, Vector
 from pyfsolver.numpy.solver import pcg
 
 
+@pytest.mark.unity
+@pytest.mark.math
 def test_pcg():
     a = COO(
         data=np.array([1.0, 0.2, 0.3, 6.0, 0.0, 1.0, 0.2, 0.3, 0.0], dtype=np.float64),
@@ -24,6 +26,6 @@ def test_pcg():
 
     pcg(a, b, x)
 
-    assert x.data[0] == approx(1.6605166051660516)
-    assert x.data[1] == approx(0.9446494464944649)
-    assert x.data[2] == approx(0.5018450184501844)
+    assert x.data[0] == pytest.approx(1.6605166051660516)
+    assert x.data[1] == pytest.approx(0.9446494464944649)
+    assert x.data[2] == pytest.approx(0.5018450184501844)

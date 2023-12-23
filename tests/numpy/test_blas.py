@@ -21,6 +21,8 @@ def x():
     return np.array([2.0, 2.0, 3.0], dtype=np.float64)
 
 
+@pytest.mark.unity
+@pytest.mark.math
 def test_matvec_pass_y(a, x):
     y = np.zeros_like(x)
 
@@ -31,6 +33,8 @@ def test_matvec_pass_y(a, x):
     assert y[2] == pytest.approx(3.6)
 
 
+@pytest.mark.unity
+@pytest.mark.math
 def test_matvec_return_y(a, x):
     y = matvec_coo(a, x)
 
@@ -39,6 +43,8 @@ def test_matvec_return_y(a, x):
     assert y[2] == pytest.approx(3.6)
 
 
+@pytest.mark.unity
+@pytest.mark.math
 def test_matvec_return_y_and_pass_need_by_the_same(a, x):
     y_old = np.zeros_like(x)
 

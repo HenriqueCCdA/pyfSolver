@@ -5,6 +5,7 @@ import pytest
 from pyfsolver.timer import Timer
 
 
+@pytest.mark.unity
 def test_exec_time():
     with Timer("Sec A", print_time=False) as time:
         sleep(1.0)

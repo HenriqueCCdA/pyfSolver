@@ -29,12 +29,12 @@ app = typer.Typer(add_completion=False, pretty_exceptions_show_locals=False)
 def typer_callback(
     ctx: Context,
     version: Annotated[
-        bool, typer.Option("--version", "-v", help="Versão do FORM.", callback=version_callback)
+        bool, typer.Option("--version", "-v", help="Versão do pyfsolver.", callback=version_callback)
     ] = False,
 ):
     if ctx.invoked_subcommand:
         return
-    console.print("[yellow]Usage[/yellow]: [green]pyfsolver[/green] [OPTIONS] COMMAND [ARGS]...\n")
+    console.print("[yellow]Usage[/yellow]: [green]pyfsolver[/green] [OPTIONS] COMMAND [ARGS] ...\n")
     console.print("[blue]--help[/blue] for more informations.")
 
 
@@ -44,7 +44,7 @@ def fortran(
     input_b: Annotated[Path, typer.Argument(..., help="Camanho do arquivo do vetor b no formato .mtx.")],
     fprint: Annotated[bool, typer.Option("--prinf", "-p", help="Imprime os resultados.")] = False,
 ):
-    """Resolvendo o sistema de equações."""
+    """Resolvendo o sistema de equações com fortran."""
     a = read_matrix(input_matrix)
     b = read_vector(input_b)
 
@@ -58,9 +58,9 @@ def fortran(
 def numpy(
     input_matrix: Annotated[Path, typer.Argument(..., help="Camanho do arquivo da matriz no formato .mtx.")],
     input_b: Annotated[Path, typer.Argument(..., help="Camanho do arquivo do vetor b no formato .mtx.")],
-    fprint: Annotated[bool, typer.Option("--prinf", "-p", help="Imprime os resultados.")] = False,
+    fprint: Annotated[bool, typer.Option("--print", "-p", help="Imprime os resultados.")] = False,
 ):
-    """Resolvendo o sistema de equações."""
+    """Resolvendo o sistema de equações com numpy."""
     a = read_matrix(input_matrix)
     b = read_vector(input_b)
 

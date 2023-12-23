@@ -6,6 +6,8 @@ from pyfsolver.coo import COO
 from pyfsolver.pyfortran.blas import matvec
 
 
+@pytest.mark.unity
+@pytest.mark.math
 def test_matvec():
     a = COO(
         data=np.array([1.0, 0.2, 0.3, 6.0, 0.0, 1.0, 0.2, 0.3, 0.0], dtype=np.float64, order="F"),

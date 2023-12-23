@@ -1,3 +1,4 @@
+import pytest
 from pytest import approx
 
 import numpy as np
@@ -6,6 +7,8 @@ from pyfsolver.coo import COO, Vector
 from pyfsolver.pyfortran.solver import pcg
 
 
+@pytest.mark.unity
+@pytest.mark.math
 def test_pcg():
     a = COO(
         data=np.array([1.0, 0.2, 0.3, 6.0, 0.0, 1.0, 0.2, 0.3, 0.0], dtype=np.float64),

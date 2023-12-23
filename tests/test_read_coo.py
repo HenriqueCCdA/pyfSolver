@@ -3,6 +3,7 @@ import pytest
 from pyfsolver.coo import read_matrix, read_vector
 
 
+@pytest.mark.unity
 def test_read_matrix():
     a = read_matrix("tests/coo_files/sist3.mtx")
 
@@ -24,6 +25,7 @@ def test_read_matrix():
         assert r == e
 
 
+@pytest.mark.unity
 def test_read_vector():
     a = read_vector("tests/coo_files/sist3_b.mtx")
 

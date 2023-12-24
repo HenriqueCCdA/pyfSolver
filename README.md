@@ -1,6 +1,6 @@
 # PyFortran
 
-Projeto simples para explorar `interoperabilidade` entre o `Fortran` e o `Python`. Para essa comunicação foi utilização o `f2py`. O `f2py` gera automaticamente um wrapper em `C` para depois compilar uma lib `cpython`. Esse pacote faz parte no `numpy`. O `f2py` usa `meson` para configurar o `build` da `lib`. O `build-system` precisa do `numpy` e do  `meson-python`.
+Projeto simples para explorar `interoperabilidade` entre o `Fortran` e o `Python`. Para essa tal foi utilização o `f2py`. O `f2py` gera automaticamente um wrapper em `C` para depois compilar uma lib `cpython`. Esse pacote faz parte no `numpy`. O `f2py` usa `meson` para configurar o `build` da `lib`. O `build-system` precisa do `numpy` e do  `meson-python`. Além disso o `meson` pode ser utilizando para fazer os testes de inidades na camada do `Fortran`.
 
 Lista de ferramentas:
 
@@ -8,6 +8,8 @@ Lista de ferramentas:
 - [meson](https://mesonbuild.com/)
 - [meson-python](https://mesonbuild.com/meson-python/)
 - [build](https://pypa-build.readthedocs.io/en/latest/)
+
+Todo o código `Fortran` está isolado em [library](src/library). Os testes da camada de `Fortran` estão na subpasta [fortan](tests/fortran/)
 
 ## Instalando
 
@@ -17,7 +19,7 @@ Criar a o ambiente virtual:
 python -m venv .venv --upgrade-deps
 ```
 
-Apos de ativar o ambiente virtual basta fazer
+Após de ativar o ambiente virtual basta fazer
 
 ```bash
 source .venv/bin/activate
@@ -42,13 +44,13 @@ pip install ".[dev]"
 
 ## Executando
 
-Para executar o código:
+Para executar usando a interface `fortran`:
 
 ```bash
 pyfsolver fortran sist3.mtx sist3_b.mtx
 ```
 
-Para executar o numpy:
+Para executar usando apenasa o `numpy` :
 
 ```bash
 pyfsolver numpy sist3.mtx sist3_b.mtx
@@ -68,16 +70,18 @@ task package
 
 ## Commit
 
-Para qualidade temos configurado `black`, `isort`, `flake8` e `mypy`. Para executar essa ferramentas pode-se instalar o precommit:
+Para qualidade temos configurado o `black`, `isort`, `flake8` e `mypy`. Para executar essa ferramentas a cada comite pode-se instalar o `precommit`:
 
 ```bash
 pre-commit  install
 ```
 
-ou manumalmente rodar formatador, linter e os testes:
+ou manualmente rodar formatador, linter e os testes:
 
 ```bash
 task fmt
 task linter
 task test
 ```
+
+Além disso temo um `CI` configurado. 
